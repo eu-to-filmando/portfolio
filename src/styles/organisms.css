@@ -45,14 +45,97 @@
     align-items: center;
 }
 
+.burger-menu {
+    display: none;
+    width: 30px;
+    height: 25px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 1001;
+}
+
+.burger-line {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: var(--text-primary);
+    border-radius: 3px;
+    position: absolute;
+    left: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.burger-line:nth-child(1) {
+    top: 0;
+}
+
+.burger-line:nth-child(2) {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.burger-line:nth-child(3) {
+    bottom: 0;
+}
+
+.burger-menu[aria-expanded="true"] .burger-line:nth-child(1) {
+    transform: translateY(11px) rotate(45deg);
+}
+
+.burger-menu[aria-expanded="true"] .burger-line:nth-child(2) {
+    opacity: 0;
+}
+
+.burger-menu[aria-expanded="true"] .burger-line:nth-child(3) {
+    transform: translateY(-11px) rotate(-45deg);
+}
+
 @media (max-width: 768px) {
-    .header__nav {
-        gap: var(--spacing-sm);
+    .burger-menu {
+        display: block;
     }
 
-    .header__container {
-        padding: 0 var(--spacing-md);
+    .header__nav {
+        display: none;
+        
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        
+        background: var(--bg-secondary);
+        box-shadow: var(--shadow-md);
+        flex-direction: column;
+        padding: var(--spacing-lg) var(--spacing-md);
+        z-index: 999;
+        
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+        pointer-events: none;
     }
+
+    .header__nav.is-open {
+        display: flex;
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: all;
+    }
+
+    .header__nav .nav-link {
+        padding: var(--spacing-sm) 0;
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .header__nav .nav-link:last-child {
+        border-bottom: none;
+    }
+
 }
 
 .parallax-section {
